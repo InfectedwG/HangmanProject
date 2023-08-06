@@ -56,8 +56,18 @@ def gameListener():
 
     return gamePower
 
+def userRegister():
+    username = input('Enter your username : ')
+    password = input('Enter your password : ')
+    currentUser = User(username, password)
+    return currentUser
+
+def userLogin():
+    username = input('Enter your username : ')
+    password = input('Enter your password : ')
+
 def userDataRecorder(username, numberofgames, numberofvictories):
-    filePath = f'C:/Users/maxim/Desktop/Project1.4/HangmanUserData/Users/{username}.txt'
+    filePath = f'C:/Users/maxim/Desktop/Projet1.4/HangmanProject/UserData/Users/{username}.txt'
     userRecords = open(filePath, 'a')
     nameStr = 'Username : ' + username
     gamesStr = 'Number of games played : ' + str(numberofgames)
@@ -82,6 +92,9 @@ gamePower = gameListener()
 username = ''
 numberOfGames = 0
 numberOfVictories = 0
+
+userTest = User('max', 'allo123')
+userTest.registerUserList()
 
 userDataRecorder(username, numberOfGames, numberOfVictories)
 
