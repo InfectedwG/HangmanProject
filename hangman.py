@@ -1,3 +1,4 @@
+import json
 from random import random
 from user import User
 
@@ -22,8 +23,10 @@ def letterCheck(letter):
 
 
 def wordCheck():
-    if hiddenWord == wordKey: return True
-    else: return False
+    if hiddenWord == wordKey:
+        return True
+    else:
+        return False
 
 
 def messageOutput(check, finish):
@@ -37,9 +40,13 @@ def messageOutput(check, finish):
 def lifeCounter(check, lives):
     if not check: lives -= 1
 
+
 def gameFinishedMessage():
-    if lives >= 0 and wordCheck(): print("Congrats!")
-    else: print("Loser haha!")
+    if lives >= 0 and wordCheck():
+        print("Congrats!")
+    else:
+        print("Loser haha!")
+
 
 def gameListener():
     gamePowerInput = input('Type ''y'' to start a new game or ''n'' to close the game : ')
@@ -56,15 +63,18 @@ def gameListener():
 
     return gamePower
 
+
 def userRegister():
     username = input('Enter your username : ')
     password = input('Enter your password : ')
     currentUser = User(username, password)
     return currentUser
 
+
 def userLogin():
     username = input('Enter your username : ')
     password = input('Enter your password : ')
+
 
 def userDataRecorder(username, numberofgames, numberofvictories):
     filePath = f'C:/Users/maxim/Desktop/Projet1.4/HangmanProject/UserData/Users/{username}.txt'
@@ -84,21 +94,22 @@ def userDataRecorder(username, numberofgames, numberofvictories):
 
     userRecords.close()
 
-#Game On | Start Menu
+
+# Game On | Start Menu
 print('Welcome to the hangman game!')
 gamePower = gameListener()
 
-#user data (to save on a txt file)
+# user data (to save on a txt file)
 username = ''
 numberOfGames = 0
 numberOfVictories = 0
 
-userTest = User('max', 'allo123')
+userTest = User('max3', 'allo123')
 userTest.registerUserList()
 
 userDataRecorder(username, numberOfGames, numberOfVictories)
 
-#session loop
+# session loop
 while gamePower:
     lives = 5
     themeChosen = int(input('Select a theme : '))
@@ -114,7 +125,7 @@ while gamePower:
 
     print(hiddenWord)
 
-    #game loop
+    # game loop
     while lives > -1 and not finish:
         letterSelection = input('Enter a letter : ')
         checked = letterCheck(letterSelection)
@@ -126,7 +137,4 @@ while gamePower:
     gameFinishedMessage()
     gamePower = gameListener()
 
-
 userData = []
-
-
