@@ -77,7 +77,8 @@ def userLogin():
 
 
 def userDataRecorder(username, numberofgames, numberofvictories):
-    filePath = f'C:/Users/maxim/Desktop/Projet1.4/HangmanProject/UserData/Users/{username}.txt'
+    dirName = os.path.dirname(__file__)
+    filePath = os.path.join(dirName, f'UserData/Users/{username}.txt')
     userRecords = open(filePath, 'a')
     nameStr = 'Username : ' + username
     gamesStr = 'Number of games played : ' + str(numberofgames)
@@ -104,10 +105,10 @@ username = ''
 numberOfGames = 0
 numberOfVictories = 0
 
-userTest = User('max3', 'allo123')
+userTest = User('max4', 'allo123')
 userTest.registerUserList()
 
-userDataRecorder(username, numberOfGames, numberOfVictories)
+#userDataRecorder(username, numberOfGames, numberOfVictories)
 
 # session loop
 while gamePower:

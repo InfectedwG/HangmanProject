@@ -1,4 +1,6 @@
 import json
+import os
+from pathlib import Path
 
 
 # import itertools
@@ -14,11 +16,14 @@ class User:
                 f"Password : {self.password}\n")
 
     def registerUserList(self):
-        filePath = 'C:/Users/maxim/Desktop/Projet1.4/HangmanProject/UserData/userInfoList.json'
+        dirName = Path.cwd()
+        print(dirName)
+        filePath = os.path.join(dirName, 'UserData\\userInfoList.json')
         userListFile = open(filePath)
+        print(userListFile.read())
         # extract data in json file
-        user_array = json.load(userListFile)
-        userListFile.close()
+        #user_array = json.load(userListFile)
+        """userListFile.close()
         userListFile = open(filePath, 'w')
 
         userData = {
@@ -29,11 +34,12 @@ class User:
         for user_item in user_array:
             if userData['username'] == user_item['username']: usernameExists = True
 
-        if usernameExists: self.registerUserList()
         else:
             user_array.append(userData)
             userListObject = json.dumps(user_array)
             userListFile.write(userListObject)
             userListFile.close()
+
+        return usernameExists"""
 
 
