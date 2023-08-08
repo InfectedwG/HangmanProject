@@ -1,17 +1,14 @@
 [
     {
-    	"id": "0",
-    	"username": "max",
+    	"username": "max1",
     	"password": "allo123"
     },
     {
-        "id": "0",
-        "username": "max",
+        "username": "max2",
         "password": "allo123"
     },
     {
-        "id": "0",
-        "username": "max",
+        "username": "max3",
         "password": "allo123"
     }
 ]

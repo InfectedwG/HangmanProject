@@ -17,19 +17,19 @@ class User:
 
     def registerUserList(self):
         # Opening JSON file
-        userListFile = open('UserData/userInfoList.json', 'w')
+        userListFile = open('UserData/userInfoList.json')
         user_array = json.load(userListFile)
         userListFile.close()
-        userListFile = open('UserData/userInfoList.json', 'w')
 
+        userListFile = open('UserData/userInfoList.json', 'w')
         userData = {
             'username': f'{self.username}',
             'password': f'{self.password}',
         }
         usernameExists = False
         for user_item in user_array:
-            if userData['username'] == user_item['username']: usernameExists = True
-
+            if userData['username'] == user_item['username']:
+                usernameExists = True
         if not usernameExists:
             user_array.append(userData)
             userListObject = json.dumps(user_array)
@@ -40,10 +40,9 @@ class User:
         return usernameExists
 
     def userLoginFile(self):
-        userListFile = open('UserData/userInfoList.json', 'w')
+        userListFile = open('UserData/userInfoList.json')
         user_array = json.load(userListFile)
         userListFile.close()
-        userListFile = open('UserData/userInfoList.json', 'w')
 
         userData = {
             'username': f'{self.username}',

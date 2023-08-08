@@ -65,20 +65,22 @@ def gameListener():
 
 
 def userRegister():
+    print('Registering...')
     username = input('Enter your username : ')
     password = input('Enter your password : ')
     currentUser = User(username, password)
     confirmation = currentUser.registerUserList()
-    if confirmation:
+    if not confirmation:
         print('Registration completed succesfully')
         print('Please login to continue : ')
-        userLogin()
+        return True
     else:
         print('The username entered already exists. Please try again : ')
         userRegister()
 
 
 def userLogin():
+    print('Logging in...')
     username = input('Enter your username : ')
     password = input('Enter your password : ')
     currentUser = User(username, password)
@@ -107,13 +109,29 @@ def userDataRecorder(username, numberofgames, numberofvictories):
     userRecords.close()
 
 def startMenuInterface():
-    print('Do you want to create an account (create), login (login) or continue as a guest (guest)?\n'
-          'Type one of the word in parentheses to make your selection.')
-    
+    print('Do you want to create an account (create), login (login) or continue as a guest (guest)?')
+    choice = input('Type one of the word in parentheses and press enter to make your selection : ')
+    registrationCompleted = False
+    currentUser = None
+    if choice == 'create':
+        registrationCompleted = userRegister()
+        if registrationCompleted:
+            currentUser = userLogin()
+    elif choice == 'login':
+        currentUser = userLogin()
+    elif choice == 'guest':
+        print('Your progress will not be saved')
+    else:
+        print('Error. Either a typo or you''re trying to pull a fast one on me')
+        startMenuInterface()
+
+    return currentUser
 
 # Game On | Start Menu
 print('Welcome to the hangman game!')
 
+currentUser = startMenuInterface()
+print(currentUser)
 gamePower = gameListener()
 
 # user data (to save on a txt file)
@@ -122,7 +140,7 @@ numberOfGames = 0
 numberOfVictories = 0
 
 userTest = User('max4', 'allo123')
-userTest.registerUserList()
+#userTest.registerUserList()
 
 #userDataRecorder(username, numberOfGames, numberOfVictories)
 
