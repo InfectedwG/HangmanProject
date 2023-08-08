@@ -16,15 +16,12 @@ class User:
                 f"Password : {self.password}\n")
 
     def registerUserList(self):
-        dirName = Path.cwd()
-        print(dirName)
-        filePath = os.path.join(dirName, 'UserData\\userInfoList.json')
-        userListFile = open(filePath)
-        print(userListFile.read())
-        # extract data in json file
-        #user_array = json.load(userListFile)
-        """userListFile.close()
-        userListFile = open(filePath, 'w')
+        # Opening JSON file
+        userListFile = open('UserData/userInfoList.json', 'w')
+        user_array = json.load(userListFile)
+        print(user_array)
+        userListFile.close()
+        userListFile = open('UserData/userInfoList.json', 'w')
 
         userData = {
             'username': f'{self.username}',
@@ -40,6 +37,6 @@ class User:
             userListFile.write(userListObject)
             userListFile.close()
 
-        return usernameExists"""
+        return usernameExists
 
 
