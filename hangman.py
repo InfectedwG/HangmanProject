@@ -68,18 +68,29 @@ def userRegister():
     username = input('Enter your username : ')
     password = input('Enter your password : ')
     currentUser = User(username, password)
-    return currentUser
+    confirmation = currentUser.registerUserList()
+    if confirmation:
+        print('Registration completed succesfully')
+        print('Please login to continue : ')
+        userLogin()
+    else:
+        print('The username entered already exists. Please try again : ')
+        userRegister()
 
 
 def userLogin():
     username = input('Enter your username : ')
     password = input('Enter your password : ')
-
+    currentUser = User(username, password)
+    confirmation = currentUser.userLoginFile()
+    if confirmation:
+        return currentUser
+    else:
+        print('Wrong username or password, please try again : ')
+        userLogin()
 
 def userDataRecorder(username, numberofgames, numberofvictories):
-    dirName = os.path.dirname(__file__)
-    filePath = os.path.join(dirName, f'UserData/Users/{username}.txt')
-    userRecords = open(filePath, 'a')
+    userRecords = open(f'UserData/Users/{username}.txt', 'a')
     nameStr = 'Username : ' + username
     gamesStr = 'Number of games played : ' + str(numberofgames)
     victoriesStr = 'Number of victories : ' + str(numberofvictories)
@@ -95,9 +106,14 @@ def userDataRecorder(username, numberofgames, numberofvictories):
 
     userRecords.close()
 
+def startMenuInterface():
+    print('Do you want to create an account (create), login (login) or continue as a guest (guest)?\n'
+          'Type one of the word in parentheses to make your selection.')
+    
 
 # Game On | Start Menu
 print('Welcome to the hangman game!')
+
 gamePower = gameListener()
 
 # user data (to save on a txt file)
