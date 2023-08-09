@@ -117,6 +117,7 @@ print('Welcome to the hangman game!')
 
 currentUser = startMenuInterface()
 #print(currentUser)
+currentUser.userDataRecorder(1, 1)
 gamePower = gameListener()
 
 # user data (to save on a txt file)
