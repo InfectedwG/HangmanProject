@@ -91,22 +91,7 @@ def userLogin():
         print('Wrong username or password, please try again : ')
         userLogin()
 
-def userDataRecorder(username, numberofgames, numberofvictories):
-    userRecords = open(f'UserData/Users/{username}.txt', 'a')
-    nameStr = 'Username : ' + username
-    gamesStr = 'Number of games played : ' + str(numberofgames)
-    victoriesStr = 'Number of victories : ' + str(numberofvictories)
-    dataArray = ['------------------------------------', '', nameStr, gamesStr, victoriesStr]
 
-    for data in dataArray:
-        userRecords.write(data)
-        userRecords.write('\n')
-
-    userRecords.write('\n')
-    userRecords.write('\n')
-    userRecords.write('\n')
-
-    userRecords.close()
 
 def startMenuInterface():
     print('Do you want to create an account (create), login (login) or continue as a guest (guest)?')
@@ -131,16 +116,13 @@ def startMenuInterface():
 print('Welcome to the hangman game!')
 
 currentUser = startMenuInterface()
-print(currentUser)
+#print(currentUser)
 gamePower = gameListener()
 
 # user data (to save on a txt file)
 username = ''
 numberOfGames = 0
 numberOfVictories = 0
-
-userTest = User('max4', 'allo123')
-#userTest.registerUserList()
 
 #userDataRecorder(username, numberOfGames, numberOfVictories)
 
@@ -169,7 +151,13 @@ while gamePower:
         messageOutput(checked, finish)
         print(hiddenWord)
 
+    numberOfGames += 1
+    if finish:
+        numberOfVictories += 1
+
     gameFinishedMessage()
     gamePower = gameListener()
+    if not gamePower:
+        currentUser.userDataRecorder(numberOfGames, numberOfVictories)
 
-userData = []
+print(currentUser.userDataRetriever())

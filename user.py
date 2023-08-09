@@ -1,7 +1,5 @@
 import json
-import os
-from pathlib import Path
-
+import datetime
 
 # import itertools
 class User:
@@ -34,8 +32,10 @@ class User:
             user_array.append(userData)
             userListObject = json.dumps(user_array)
             userListFile.write(userListObject)
+            userListFile.close()
+            userRecords = open(f'UserData/Users/{self.username}.json', 'x')
 
-        userListFile.close()
+
 
         return usernameExists
 
@@ -55,3 +55,27 @@ class User:
                 break
 
         return loginAllow
+
+    def userDataRetriever(self):
+        userRecordsFile = open(f'UserData/Users/{self.username}.json')
+        sessionRecords = json.load(userRecordsFile)
+        userRecordsFile.close()
+
+        return sessionRecords
+
+    def userDataRecorder(self, numberofgames, numberofvictories):
+        userRecordsFile = open(f'UserData/Users/{self.username}.json')
+        sessionRecords = json.load(userRecordsFile)
+        userRecordsFile.close()
+
+        userRecordsFile = open(f'UserData/Users/{self.username}.json', 'w')
+        currentDatetime = datetime.datetime.now()
+        currentDay = currentDatetime.day
+        sessionData = {
+            'Date': currentDay,
+            'Number_of_games': numberofgames,
+            'Number of victories': numberofvictories
+        }
+        sessionRecords.append(sessionData)
+        userRecordsFile.write(json.dumps(sessionRecords))
+        userRecordsFile.close()
