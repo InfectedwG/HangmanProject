@@ -38,7 +38,9 @@ def messageOutput(check, finish):
 
 
 def lifeCounter(check, lives):
-    if not check: lives -= 1
+    if not check:
+        lives -= 1
+    return lives
 
 
 def gameFinishedMessage():
@@ -144,10 +146,10 @@ while gamePower:
     print(hiddenWord)
 
     # game loop
-    while lives > -1 and not finish:
+    while lives > 0 and not finish:
         letterSelection = input('Enter a letter : ')
         checked = letterCheck(letterSelection)
-        lifeCounter(checked, lives)
+        lives = lifeCounter(checked, lives)
         finish = wordCheck()
         messageOutput(checked, finish)
         print(hiddenWord)
