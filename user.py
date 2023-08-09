@@ -15,34 +15,30 @@ class User:
 
     def registerUserList(self):
         # Opening JSON file
-        userListFile = open('UserData/userInfoList.json')
-        user_array = json.load(userListFile)
-        userListFile.close()
-
-        userListFile = open('UserData/userInfoList.json', 'w')
         userData = {
             'username': f'{self.username}',
             'password': f'{self.password}',
         }
         usernameExists = False
+
+        with open('UserData/userInfoList.json') as userListFile:
+            user_array = json.load(userListFile)
+
         for user_item in user_array:
             if userData['username'] == user_item['username']:
                 usernameExists = True
+
         if not usernameExists:
             user_array.append(userData)
-            userListObject = json.dumps(user_array)
-            userListFile.write(userListObject)
-            userListFile.close()
-            userRecords = open(f'UserData/Users/{self.username}.json', 'x')
-
-
+            with open('UserData/userInfoList.json', 'w') as userListFile:
+                userListFile.write(json.dumps(user_array))
+            open(f'UserData/Users/{self.username}.json', 'x')
 
         return usernameExists
 
     def userLoginFile(self):
-        userListFile = open('UserData/userInfoList.json')
-        user_array = json.load(userListFile)
-        userListFile.close()
+        with open('UserData/userInfoList.json') as userListFile:
+            user_array = json.load(userListFile)
 
         userData = {
             'username': f'{self.username}',
@@ -57,9 +53,8 @@ class User:
         return loginAllow
 
     def userDataRetriever(self):
-        userRecordsFile = open(f'UserData/Users/{self.username}.json')
-        sessionRecords = json.load(userRecordsFile)
-        userRecordsFile.close()
+        with open(f'UserData/Users/{self.username}.json') as userRecordsFile:
+            sessionRecords = json.load(userRecordsFile)
 
         return sessionRecords
 
@@ -72,16 +67,17 @@ class User:
             'Number of victories': numberofvictories
         }
         userRecordsFile = open(f'UserData/Users/{self.username}.json')
-        if len(userRecordsFile.read()) > 0:
-            sessionRecords = json.load(userRecordsFile)
-            userRecordsFile.close()
-
-            userRecordsFile = open(f'UserData/Users/{self.username}.json', 'w')
+        fileLength = len(userRecordsFile.read())
+        print(fileLength)
+        userRecordsFile.close()
+        if fileLength > 0:
+            with open(f'UserData/Users/{self.username}.json') as userRecordsFile:
+                sessionRecords = json.load(userRecordsFile)
 
             sessionRecords.append(sessionData)
-            userRecordsFile.write(json.dumps(sessionRecords))
+            with open(f'UserData/Users/{self.username}.json', 'w') as userRecordsFile:
+                userRecordsFile.write(json.dumps(sessionRecords))
         else:
-            userRecordsFile = open(f'UserData/Users/{self.username}.json', 'w')
-            userRecordsFile.write(json.dumps(sessionData))
-
-        userRecordsFile.close()
+            sessionDataArray = [sessionData]
+            with open(f'UserData/Users/{self.username}.json', 'w') as userRecordsFile:
+                userRecordsFile.write(json.dumps(sessionDataArray))
