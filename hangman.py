@@ -114,18 +114,40 @@ def startMenuInterface():
 
     return currentUser
 
+def arrayPrinter(array):
+    for i in range(8):
+        tempstr = ''
+        for j in range(11):
+            tempstr += array[i][j]
+
+        print(tempstr)
+
+def gameGraphicDesign():
+    designArray = [[' ', ' ', ' ', '|', '=', '=', '=', '=', '=', '=', '=', ' '],
+                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' '],
+                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                   ['=', '=', '=', '=', '=', '=', '=', ' ', ' ', ' ', ' ', ' ']]
+
+    arrayPrinter(designArray)
+
+
 # Game On | Start Menu
 print('Welcome to the hangman game!')
 
-currentUser = startMenuInterface()
+#currentUser = startMenuInterface()
 #print(currentUser)
-currentUser.userDataRecorder(1, 1)
-gamePower = gameListener()
-
-# user data (to save on a txt file)
-username = ''
+# user data
+#currentUser.userDataRecorder(1, 1)
 numberOfGames = 0
 numberOfVictories = 0
+
+gameGraphicDesign()
+
+gamePower = gameListener()
 
 #userDataRecorder(username, numberOfGames, numberOfVictories)
 
@@ -163,4 +185,4 @@ while gamePower:
     if not gamePower:
         currentUser.userDataRecorder(numberOfGames, numberOfVictories)
 
-print(currentUser.userDataRetriever())
+#print(currentUser.userDataRetriever())
