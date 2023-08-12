@@ -122,17 +122,23 @@ def arrayPrinter(array):
 
         print(tempstr)
 
-def gameGraphicDesign():
-    designArray = [[' ', ' ', ' ', '|', '=', '=', '=', '=', '=', '=', '=', ' '],
-                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' '],
-                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                   [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                   ['=', '=', '=', '=', '=', '=', '=', ' ', ' ', ' ', ' ', ' ']]
+def gameGraphicDesign(livesArg, designArray):
 
-    arrayPrinter(designArray)
+    match livesArg:
+        case 4:
+            designArray[2][10] = 'O'
+            designArray[3][10] = '|'
+            designArray[4][10] = '|'
+        case 3:
+            designArray[3][9] = '\\'
+        case 2:
+            designArray[3][11] = '/'
+        case 1:
+            designArray[4][9] = '/'
+        case 0:
+            designArray[4][11] = '\\'
+
+    return designArray
 
 
 # Game On | Start Menu
@@ -145,7 +151,6 @@ print('Welcome to the hangman game!')
 numberOfGames = 0
 numberOfVictories = 0
 
-gameGraphicDesign()
 
 gamePower = gameListener()
 
@@ -153,6 +158,14 @@ gamePower = gameListener()
 
 # session loop
 while gamePower:
+    gameArray = [[' ', ' ', ' ', '|', '=', '=', '=', '=', '=', '=', '=', ' '],
+                 [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' '],
+                 [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 [' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                 ['=', '=', '=', '=', '=', '=', '=', ' ', ' ', ' ', ' ', ' ']]
     lives = 5
     themeChosen = int(input('Select a theme : '))
     currentTheme = selectTheme()
@@ -165,16 +178,22 @@ while gamePower:
         hiddenWord.append('_')
         wordKey.append(word[i])
 
-    print(hiddenWord)
+
 
     # game loop
     while lives > 0 and not finish:
+        arrayPrinter(gameArray)
+        print(hiddenWord)
         letterSelection = input('Enter a letter : ')
         checked = letterCheck(letterSelection)
         lives = lifeCounter(checked, lives)
+        gameArray = gameGraphicDesign(lives, gameArray)
         finish = wordCheck()
         messageOutput(checked, finish)
-        print(hiddenWord)
+
+    arrayPrinter(gameArray)
+    print(hiddenWord)
+
 
     numberOfGames += 1
     if finish:
@@ -182,7 +201,7 @@ while gamePower:
 
     gameFinishedMessage()
     gamePower = gameListener()
-    if not gamePower:
-        currentUser.userDataRecorder(numberOfGames, numberOfVictories)
+    """if not gamePower:
+        currentUser.userDataRecorder(numberOfGames, numberOfVictories)"""
 
 #print(currentUser.userDataRetriever())
