@@ -144,7 +144,7 @@ def gameGraphicDesign(livesArg, designArray):
 # Game On | Start Menu
 print('Welcome to the hangman game!')
 
-#currentUser = startMenuInterface()
+currentUser = startMenuInterface()
 #print(currentUser)
 # user data
 #currentUser.userDataRecorder(1, 1)
@@ -201,7 +201,7 @@ while gamePower:
 
     gameFinishedMessage()
     gamePower = gameListener()
-    """if not gamePower:
-        currentUser.userDataRecorder(numberOfGames, numberOfVictories)"""
+    if not gamePower:
+        currentUser.userDataRecorder(numberOfGames, numberOfVictories)
 
 #print(currentUser.userDataRetriever())
